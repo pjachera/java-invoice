@@ -1,30 +1,64 @@
 package pl.edu.agh.mwo.invoice;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
-    private Collection<Product> products;
+    private Collection<Product> products = new ArrayList<>();
 
     public void addProduct(Product product) {
-        // TODO: implement
+        if((product == null)) throw new IllegalArgumentException();
+        else{
+            products.add(product);
+        }
     }
 
     public void addProduct(Product product, Integer quantity) {
-        // TODO: implement
+        if((product == null) || (quantity <= 0)) throw new IllegalArgumentException();
+        else {
+            for (Integer i = 0; i < quantity; i++) addProduct(product);
+        }
     }
 
     public BigDecimal getSubtotal() {
-        return null;
+        BigDecimal bigDecimal = new BigDecimal("0");
+
+        Iterator<Product> productIterator = products.iterator();
+
+        while(productIterator.hasNext()){
+            bigDecimal = bigDecimal.add(productIterator.next().getPrice());
+        };
+
+        return bigDecimal;
     }
 
     public BigDecimal getTax() {
-        return null;
+
+        BigDecimal bigDecimal = new BigDecimal("0");
+
+        Iterator<Product> productIterator = products.iterator();
+
+        while(productIterator.hasNext()){
+            Product product = productIterator.next();
+            bigDecimal = bigDecimal.add(product.getPrice().multiply(product.getTaxPercent()));
+        };
+
+        return bigDecimal;
     }
 
     public BigDecimal getTotal() {
-        return null;
+        BigDecimal bigDecimal = new BigDecimal("0");
+
+        Iterator<Product> productIterator = products.iterator();
+
+        while(productIterator.hasNext()){
+            bigDecimal= bigDecimal.add(productIterator.next().getPriceWithTax());
+        };
+
+        return bigDecimal;
     }
 }
