@@ -11,14 +11,13 @@ public class Invoice {
     private Collection<Product> products = new ArrayList<>();
 
     public void addProduct(Product product) {
-        if((product == null)) throw new IllegalArgumentException();
-        else{
-            products.add(product);
-        }
+        if(product == null) throw new IllegalArgumentException("Product cannot be null");
+        else products.add(product);
     }
 
     public void addProduct(Product product, Integer quantity) {
-        if((product == null) || (quantity <= 0)) throw new IllegalArgumentException();
+        if(product == null) throw new IllegalArgumentException("Product cannot be null");
+        if(quantity <= 0) throw new IllegalArgumentException("Quantity must be gretter than zero");
         else {
             for (Integer i = 0; i < quantity; i++) addProduct(product);
         }
