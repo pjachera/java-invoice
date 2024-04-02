@@ -111,6 +111,23 @@ public class InvoiceTest {
         Assert.assertThat(new BigDecimal("54.70"), Matchers.comparesEqualTo(invoice.getGrossTotal()));
     }
 
+    @Test
+    public void testInvoiceHaveANumber(){
+        Assert.assertNotNull(invoice.getNumber());
+    }
+
+    @Test
+    public void testInvoiceNumberIsGreaterThanZero(){
+        Assert.assertTrue(invoice.getNumber() > 0);
+    }
+
+    @Test
+    public void testFirstInvoiceNumberIsLessThanSecond(){
+        Assert.assertTrue(invoice.getNumber() < new Invoice().getNumber());
+    }
+
+
+
     @Test(expected = IllegalArgumentException.class)
     public void testInvoiceWithZeroQuantity() {
         invoice.addProduct(new TaxFreeProduct("Tablet", new BigDecimal("1678")), 0);
@@ -125,4 +142,5 @@ public class InvoiceTest {
     public void testAddingNullProduct() {
         invoice.addProduct(null);
     }
+
 }
