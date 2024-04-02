@@ -9,16 +9,19 @@ public abstract class Product {
 
     private final BigDecimal taxPercent;
 
-    protected Product(String name, BigDecimal price, BigDecimal tax){
+    protected Product(String name, BigDecimal price, BigDecimal tax) {
 
-        if( (name == null) || (name.isEmpty()) )
-         throw new IllegalArgumentException("Product name cannot be null");
+        if ((name == null) || (name.isEmpty())) {
+            throw new IllegalArgumentException("Product name cannot be null");
+        }
 
-        if( (price == null) || (price.intValue() < 0) )
+        if ((price == null) || (price.intValue() < 0)) {
             throw new IllegalArgumentException("Price cannot be null");
+        }
 
-        if( (tax == null) || (tax.intValue() < 0) )
+        if ((tax == null) || (tax.intValue() < 0)) {
             throw new IllegalArgumentException("Tax cannot be null");
+        }
 
         this.name = name;
         this.price = price;

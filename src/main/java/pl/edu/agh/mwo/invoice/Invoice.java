@@ -11,15 +11,23 @@ public class Invoice {
     private Collection<Product> products = new ArrayList<>();
 
     public void addProduct(Product product) {
-        if(product == null) throw new IllegalArgumentException("Product cannot be null");
-        else products.add(product);
+        if (product == null) {
+            throw new IllegalArgumentException("Product cannot be null");
+        } else {
+            products.add(product);
+        }
     }
 
     public void addProduct(Product product, Integer quantity) {
-        if(product == null) throw new IllegalArgumentException("Product cannot be null");
-        if(quantity <= 0) throw new IllegalArgumentException("Quantity must be gretter than zero");
-        else {
-            for (Integer i = 0; i < quantity; i++) addProduct(product);
+        if (product == null) {
+            throw new IllegalArgumentException("Product cannot be null");
+        }
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be gretter than zero");
+        } else {
+            for (Integer i = 0; i < quantity; i++) {
+                addProduct(product);
+            }
         }
     }
 
@@ -28,9 +36,10 @@ public class Invoice {
 
         Iterator<Product> productIterator = products.iterator();
 
-        while(productIterator.hasNext()){
+        while (productIterator.hasNext()) {
             bigDecimal = bigDecimal.add(productIterator.next().getPrice());
-        };
+        }
+        ;
 
         return bigDecimal;
     }
@@ -41,10 +50,11 @@ public class Invoice {
 
         Iterator<Product> productIterator = products.iterator();
 
-        while(productIterator.hasNext()){
+        while (productIterator.hasNext()) {
             Product product = productIterator.next();
             bigDecimal = bigDecimal.add(product.getPrice().multiply(product.getTaxPercent()));
-        };
+        }
+        ;
 
         return bigDecimal;
     }
@@ -54,9 +64,10 @@ public class Invoice {
 
         Iterator<Product> productIterator = products.iterator();
 
-        while(productIterator.hasNext()){
-            bigDecimal= bigDecimal.add(productIterator.next().getPriceWithTax());
-        };
+        while (productIterator.hasNext()) {
+            bigDecimal = bigDecimal.add(productIterator.next().getPriceWithTax());
+        }
+        ;
 
         return bigDecimal;
     }
