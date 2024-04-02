@@ -13,9 +13,8 @@ jobs:
           distribution: 'adopt'
       - name: Test
         run: mvn test
-
-  lind:
-    name: Lind with checkstyle
+  checkstyle:
+    name: Check code style
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -24,5 +23,5 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-      - name: Checkstyle
-        run: mvn checkstyle:check
+      - name: Check code style
+        run: mvn checkstyle::check
