@@ -59,9 +59,9 @@ public class Invoice {
             allInvoice = allInvoice.concat("Numer faktury:" + getNumber());
             for (Product product : products.keySet()) {
 
-                allInvoice = allInvoice.concat("\nNazwa produktu:" + product.getName() +
-                        " Liczba sztuk:" + products.get(product).intValue() +
-                        " Cena:" + product.getPrice() + "zł");
+                allInvoice = allInvoice.concat("\nNazwa produktu:" + product.getName()
+                        + " Liczba sztuk:" + products.get(product).intValue()
+                        + " Cena:" + product.getPrice() + "zł");
 
 
             }
