@@ -9,10 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pl.edu.agh.mwo.invoice.Invoice;
-import pl.edu.agh.mwo.invoice.product.DairyProduct;
-import pl.edu.agh.mwo.invoice.product.OtherProduct;
-import pl.edu.agh.mwo.invoice.product.Product;
-import pl.edu.agh.mwo.invoice.product.TaxFreeProduct;
+import pl.edu.agh.mwo.invoice.product.*;
 
 public class InvoiceTest {
     private Invoice invoice;
@@ -112,6 +109,7 @@ public class InvoiceTest {
         Assert.assertThat(new BigDecimal("54.70"), Matchers.comparesEqualTo(invoice.getGrossTotal()));
     }
 
+
     @Test
     public void testInvoiceHaveANumber() {
         Assert.assertNotNull(invoice.getNumber());
@@ -148,7 +146,7 @@ public class InvoiceTest {
     }
 
     @Test
-    public void testAddTwoSameProducts(){
+    public void testAddTwoSameProducts() {
         invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")));
         invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")));
 
@@ -159,7 +157,7 @@ public class InvoiceTest {
     }
 
     @Test
-    public void testAddFourSameProducts(){
+    public void testAddFourSameProducts() {
         invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")));
         invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")));
         invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")));
@@ -172,7 +170,7 @@ public class InvoiceTest {
     }
 
     @Test
-    public void testAddTwoSameProductsWithQuantity(){
+    public void testAddTwoSameProductsWithQuantity() {
         invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")), 8);
         invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")), 5);
 
@@ -183,7 +181,7 @@ public class InvoiceTest {
     }
 
     @Test
-    public void testAddFiveSameProductsWithQuantity(){
+    public void testAddFiveSameProductsWithQuantity() {
         invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")), 8);
         invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")), 5);
         invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")), 5);
@@ -195,6 +193,37 @@ public class InvoiceTest {
                 "Liczba pozycji: 1");
 
     }
+
+    @Test
+    public void testInvoiceWithTwoProductsAndExcise() {
+        invoice.addProduct(new ExciseProduct("Piwo", new BigDecimal("3"),
+                new BigDecimal("0.23"), new BigDecimal("5.56")));
+        invoice.addProduct(new ExciseProduct("Piwo", new BigDecimal("3"),
+                new BigDecimal("0.23"), new BigDecimal("5.56")));
+
+        Assert.assertThat(new BigDecimal("18.50"), Matchers.comparesEqualTo(invoice.getGrossTotal()));
+
+    }
+
+    @Test
+    public void testInvoiceWithTwoProductsAndExciseWithQuantity() {
+        invoice.addProduct(new ExciseProduct("Piwo", new BigDecimal("3"),
+                new BigDecimal("0.23"), new BigDecimal("5.56")), 5);
+        invoice.addProduct(new ExciseProduct("Piwo", new BigDecimal("3"),
+                new BigDecimal("0.23"), new BigDecimal("5.56")), 5);
+
+        Assert.assertThat(new BigDecimal("92.50"), Matchers.comparesEqualTo(invoice.getGrossTotal()));
+
+    }
+
+    @Test
+    public void testInvoiceWithFuelCanisterProductInMotherInLawDay() {
+        invoice.addProduct(new FuelCanisterProduct("Benzyna", new BigDecimal("5.5"),
+                new BigDecimal("0.23"), new BigDecimal("5.56")), 1);
+
+        Assert.assertThat(new BigDecimal("12.325"), Matchers.comparesEqualTo(invoice.getGrossTotal()));
+    }
+
 
     @Test(expected = IllegalArgumentException.class)
     public void testInvoiceWithZeroQuantity() {

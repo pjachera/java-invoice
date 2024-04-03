@@ -39,21 +39,10 @@ public abstract class Product {
 
     public boolean equals(Product product) {
         if (this.getName().equals(product.name) && this.getPrice().equals(product.getPrice())
-            && this.getTaxPercent().equals(product.getTaxPercent())) {
+                && this.getTaxPercent().equals(product.getTaxPercent())) {
             return true;
         }
         return false;
     }
 }
-//    public boolean compareTo(Product anotherProduct) {
-//        return compare(this, anotherProduct);
-//    }
-//
-//    public static boolean compare (Product x, Product y) {
-//        if(x.getName().equals(y.name) && x.getPrice().equals(y.getPrice())
-//                && x.getTaxPercent().equals(y.getTaxPercent())){
-//            return true;
-//        }
-//        return false;
-//    }
 
