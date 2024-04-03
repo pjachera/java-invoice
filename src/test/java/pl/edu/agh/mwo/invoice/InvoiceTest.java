@@ -1,6 +1,7 @@
 package pl.edu.agh.mwo.invoice;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;
@@ -126,6 +127,25 @@ public class InvoiceTest {
         Assert.assertTrue(invoice.getNumber() < new Invoice().getNumber());
     }
 
+    @Test
+    public void testPrintProductsFromInvoice(){
+        invoice.addProduct(new DairyProduct("Chleb", new BigDecimal("4.5")));
+        invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")), 2);
+        invoice.addProduct(new DairyProduct("Bulka", new BigDecimal("1")), 2);
+        invoice.addProduct(new OtherProduct("Piwo", new BigDecimal("3")), 8);
+
+        Assert.assertEquals(invoice.print(), "Numer faktury:"+ invoice.getNumber() +"\n" +
+                                                   "Nazwa produktu:Chleb Liczba sztuk:1 Cena:4.5zł\n" +
+                                                   "Nazwa produktu:Maslo Liczba sztuk:2 Cena:7zł\n" +
+                                                   "Nazwa produktu:Bulka Liczba sztuk:2 Cena:1zł\n" +
+                                                   "Nazwa produktu:Piwo Liczba sztuk:8 Cena:3zł\n" +
+                                                   "Liczba pozycji: 4");
+    }
+
+    @Test
+    public void testPrintEmptyInvoice(){
+        Assert.assertEquals(invoice.print(), "");
+    }
 
 
     @Test(expected = IllegalArgumentException.class)

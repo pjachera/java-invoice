@@ -2,18 +2,19 @@ package pl.edu.agh.mwo.invoice;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
-    static Integer number = 0;
+    static Integer numberOfInvoice = 0;
 
     public Invoice() {
-        number++;
+        numberOfInvoice++;
     }
 
-    private Map<Product, Integer> products = new HashMap<Product, Integer>();
+    private Map<Product, Integer> products = new LinkedHashMap<Product, Integer>();
 
     public void addProduct(Product product) {
         addProduct(product, 1);
@@ -49,6 +50,23 @@ public class Invoice {
     }
 
     public int getNumber() {
-        return number;
+        return numberOfInvoice;
+    }
+
+    public String print() {
+        String allInvoice = "";
+        if (!products.isEmpty()) {
+            allInvoice = allInvoice.concat("Numer faktury:" + getNumber());
+            for (Product product : products.keySet()) {
+
+                allInvoice = allInvoice.concat("\nNazwa produktu:" + product.getName() +
+                        " Liczba sztuk:" + products.get(product).intValue() +
+                        " Cena:" + product.getPrice() + "zł");
+
+
+            }
+            allInvoice = allInvoice.concat("\nLiczba pozycji: " + products.keySet().size());
+        }
+        return allInvoice;
     }
 }
