@@ -35,6 +35,13 @@ public class ProductTest {
         Assert.assertThat(new BigDecimal("108"), Matchers.comparesEqualTo(product.getPriceWithTax()));
     }
 
+    @Test
+    public void testEqualsTwoSameProducts() {
+        Product product1 = new OtherProduct("Ogorki", new BigDecimal("100.0"));
+        Product product2 = new OtherProduct("Ogorki", new BigDecimal("100.0"));
+        Assert.assertTrue(product1.equals(product2));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testProductWithNullName() {
         new OtherProduct(null, new BigDecimal("100.0"));
@@ -54,4 +61,6 @@ public class ProductTest {
     public void testProductWithNegativePrice() {
         new TaxFreeProduct("Mandarynki", new BigDecimal("-1.00"));
     }
+
+
 }

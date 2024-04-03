@@ -147,6 +147,54 @@ public class InvoiceTest {
         Assert.assertEquals(invoice.print(), "");
     }
 
+    @Test
+    public void testAddTwoSameProducts(){
+        invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")));
+        invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")));
+
+        Assert.assertEquals(invoice.print(), "Numer faktury:" + invoice.getNumber() + "\n" +
+                "Nazwa produktu:Maslo Liczba sztuk:2 Cena:7zł\n" +
+                "Liczba pozycji: 1");
+
+    }
+
+    @Test
+    public void testAddFourSameProducts(){
+        invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")));
+        invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")));
+        invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")));
+        invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")));
+
+        Assert.assertEquals(invoice.print(), "Numer faktury:" + invoice.getNumber() + "\n" +
+                "Nazwa produktu:Maslo Liczba sztuk:2 Cena:7zł\n" +
+                "Liczba pozycji: 1");
+
+    }
+
+    @Test
+    public void testAddTwoSameProductsWithQuantity(){
+        invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")), 8);
+        invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")), 5);
+
+        Assert.assertEquals(invoice.print(), "Numer faktury:" + invoice.getNumber() + "\n" +
+                "Nazwa produktu:Maslo Liczba sztuk:13 Cena:7zł\n" +
+                "Liczba pozycji: 1");
+
+    }
+
+    @Test
+    public void testAddFiveSameProductsWithQuantity(){
+        invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")), 8);
+        invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")), 5);
+        invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")), 5);
+        invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")), 5);
+        invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("7")), 5);
+
+        Assert.assertEquals(invoice.print(), "Numer faktury:" + invoice.getNumber() + "\n" +
+                "Nazwa produktu:Maslo Liczba sztuk:28 Cena:7zł\n" +
+                "Liczba pozycji: 1");
+
+    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testInvoiceWithZeroQuantity() {

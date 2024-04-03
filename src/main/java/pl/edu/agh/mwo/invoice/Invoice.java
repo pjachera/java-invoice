@@ -17,14 +17,41 @@ public class Invoice {
     private Map<Product, Integer> products = new LinkedHashMap<Product, Integer>();
 
     public void addProduct(Product product) {
-        addProduct(product, 1);
+        if (product == null) {
+            throw new IllegalArgumentException();
+        } else {
+            int quantityCount = 0;
+            for (Product product1 : products.keySet()) {
+                if (product.equals(product1)) {
+                    quantityCount++;
+                    products.remove(product1);
+                }
+            }
+            if (quantityCount == 0) {
+                products.put(product, 1);
+            } else {
+                products.put(product, 1 + quantityCount);
+            }
+        }
     }
 
     public void addProduct(Product product, Integer quantity) {
         if (product == null || quantity <= 0) {
             throw new IllegalArgumentException();
+        } else {
+            int quantityCount = 0;
+            for (Product product1 : products.keySet()) {
+                if (product.equals(product1)) {
+                    quantityCount = +products.get(product1);
+                    products.remove(product1);
+                }
+            }
+            if (quantityCount == 0) {
+                products.put(product, quantity);
+            } else {
+                products.put(product, quantity + quantityCount);
+            }
         }
-        products.put(product, quantity);
     }
 
     public BigDecimal getNetTotal() {
