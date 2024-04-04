@@ -23,14 +23,14 @@ public class Invoice {
             int quantityCount = 0;
             for (Product product1 : products.keySet()) {
                 if (product.equals(product1)) {
-                    quantityCount++;
+                    quantityCount = +products.get(product1);
                     products.remove(product1);
                 }
             }
             if (quantityCount == 0) {
                 products.put(product, 1);
             } else {
-                products.put(product, 1 + quantityCount);
+                products.put(product, quantityCount + 1);
             }
         }
     }
@@ -89,7 +89,6 @@ public class Invoice {
                 allInvoice = allInvoice.concat("\nNazwa produktu:" + product.getName()
                         + " Liczba sztuk:" + products.get(product).intValue()
                         + " Cena:" + product.getPrice() + "zł");
-
 
             }
             allInvoice = allInvoice.concat("\nLiczba pozycji: " + products.keySet().size());
