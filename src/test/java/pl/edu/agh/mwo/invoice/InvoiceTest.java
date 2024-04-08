@@ -196,9 +196,9 @@ public class InvoiceTest {
 
     @Test
     public void testInvoiceWithTwoProductsAndExcise() {
-        invoice.addProduct(new ExciseProduct("Vodka", new BigDecimal("20"),
+        invoice.addProduct(new BottleOfWine("Wino", new BigDecimal("20"),
                 new BigDecimal("0.23"), new BigDecimal("5.56")));                //30,16
-        invoice.addProduct(new ExciseProduct("Vodka", new BigDecimal("20"),
+        invoice.addProduct(new BottleOfWine("Wino", new BigDecimal("20"),
                 new BigDecimal("0.23"), new BigDecimal("5.56")));                 //30,16
 
         Assert.assertThat(new BigDecimal("60.32"), Matchers.comparesEqualTo(invoice.getGrossTotal()));
@@ -207,9 +207,9 @@ public class InvoiceTest {
 
     @Test
     public void testInvoiceWithTwoProductsAndExciseWithQuantity() {
-        invoice.addProduct(new ExciseProduct("Vodka", new BigDecimal("20"),
+        invoice.addProduct(new BottleOfWine("Wino", new BigDecimal("20"),
                 new BigDecimal("0.23"), new BigDecimal("5.56")), 5);    //30,16 x 5 = 150,8
-        invoice.addProduct(new ExciseProduct("Vodka", new BigDecimal("20"),
+        invoice.addProduct(new BottleOfWine("Wino", new BigDecimal("20"),
                 new BigDecimal("0.23"), new BigDecimal("5.56")), 5);    //30,16 x 5 = 150,8
 
         Assert.assertThat(new BigDecimal("301.6"), Matchers.comparesEqualTo(invoice.getGrossTotal()));

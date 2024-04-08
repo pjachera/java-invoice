@@ -6,6 +6,7 @@ import java.time.Month;
 
 public class FuelCanisterProduct extends ExciseProduct {
     private static final int MOTHER_DAY = 5;
+    private static final Month MOTHER_MONTH = Month.MARCH;
 
     public FuelCanisterProduct(String name, BigDecimal price, BigDecimal tax, BigDecimal excise) {
         super(name, price, tax, excise);
@@ -16,7 +17,7 @@ public class FuelCanisterProduct extends ExciseProduct {
 
         BigDecimal excise = null;
         LocalDate localDate = LocalDate.now();
-        if ((localDate.getDayOfMonth() == MOTHER_DAY) && (localDate.getMonth() == Month.MARCH)) {
+        if ((localDate.getDayOfMonth() == MOTHER_DAY) && (localDate.getMonth() == MOTHER_MONTH)) {
             excise = BigDecimal.ZERO;
         } else {
             excise = this.getExcise();
